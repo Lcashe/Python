@@ -1,7 +1,7 @@
 import re, requests, validators, sys
 from collections import Counter
 from prettytable import PrettyTable
-from requests.exceptions import ConnectionError, HTTPError, TimeoutError
+from requests.exceptions import ConnectionError, HTTPError
 
 url_input = str(input("Enter url: ").strip())
 
@@ -25,9 +25,6 @@ except ConnectionError as e:
     print(e)
     sys.exit()
 except HTTPError as e:
-    print(e)
-    sys.exit()
-except TimeoutError as e:
     print(e)
     sys.exit()
 
