@@ -1,22 +1,26 @@
-import re
-import requests
+  
+import re, requests, validators
 from collections import Counter
 from prettytable import PrettyTable
 
-url_input = input("Enter url: ").strip()
-if not url_input.startswith(('http://', 'https://')):
-    url_input = 'https://' + url_input
+url_input = str(input("Enter url: ").strip())
 
-response = requests.get(url_input)
+if not url_input.startswith(("http://", "https://")):
+    try:
+        url = "https://" + url_input
+    except:
+        url = "http://"  + url_input
+
+validators.url(url)
+if not validators.url(url):
+    print("Entered link is not correct...")
+    quit()
+
+response = requests.get(url)
 
 result = re.findall( r"\"(?:http[s]?://)([^:/\s\"]+)/?[^\"]*\"", response.text)
+result.sort()
 
-def count_words(List):
-    for word, counter in Counter(List).most_common():
-        print(f"{word} matches {counter} times")
-
-count_words(result)
-
-pt = PrettyTable()
+pt = PrettyTable(field_names=["word", "counter"])
 pt.add_rows(list(Counter(result).most_common()))
 print(pt)
