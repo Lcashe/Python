@@ -1,19 +1,28 @@
-import requests, re
+import re, requests
+from collections import Counter
+from prettytable import PrettyTable
 
-response = requests.get("https://www.google.com/")
+url_input = input("Enter url: ")
 
-result = re.findall(r'/[A-Za-z\.]+/', response.text)
-print(result)
+url_checked = re.findall(r'https?://\S+', url_input)[0] # берем первый элемент
+
+if url_input != url_checked: # проверка валидности ссылки
+    print("Entered url is invalid")
+else:
+    pass
+
+response = requests.get(str(url_checked)) # запрос на введенную ссылку
+
+result = re.findall( r"\"(?:http[s]?://)([^:/\s\"]+)/?[^\"]*\"", response.text) # фильтрация ссылок
+
+result.sort() # sorting by alphabet 
+
+# link - https://stackoverflow.com/
 
 def count_words(List):
-    Dict = {}
-    for word in List:
-        if word in Dict:
-            Dict[word] += 1
-        else:
-            Dict[word] = 1
+    for link, counter in Counter(List).most_common():
+        print(f"{link} matches {counter} time(s)")
 
-    for word, counter in Dict.items():
-        print(f"word {word} matches {counter}")
+count_words(result)
 
-count_words(result) 
+counter_list = list(Counter(result).most_common())
