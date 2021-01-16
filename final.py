@@ -1,21 +1,19 @@
-import re, requests
-from collections import Counter
+import requests, re
 
-url_input = input("Enter url: ")
+response = requests.get("https://www.google.com/")
 
-url_checked = re.findall(r'https?://\S+', url_input)[0] # берем первый элемент
+result = re.findall(r'/[A-Za-z\.]+/', response.text)
+print(result)
 
+def count_words(List):
+    Dict = {}
+    for word in List:
+        if word in Dict:
+            Dict[word] += 1
+        else:
+            Dict[word] = 1
 
-if url_input != url_checked: # проверка валидности ссылки
-    print("Entered url is invalid")
-else:
-    pass
+    for word, counter in Dict.items():
+        print(f"word {word} matches {counter}")
 
-response = requests.get(str(url_checked)) # запрос на введенную ссылку
-result = re.findall(r'/[A-Za-z.]+/', response.text) # фильтрация ссылок
-
-def count_words(List): # функция подсчета ссылок
-    for word, counter in Counter(List).items():
-        print(f"{word} matches {counter} times")
-
-count_words(result)
+count_words(result) 
