@@ -22,6 +22,7 @@ if not validators.url(url):
 try:
     response = requests.get(url)
 except ConnectionError as e:
+    print("Ooooops, something went wrong: Connection Error!")
     print(e)
     sys.exit()
 except HTTPError as e:
