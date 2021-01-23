@@ -2,8 +2,13 @@ import re, requests, validators, sys
 from collections import Counter
 from prettytable import PrettyTable
 from requests.exceptions import ConnectionError, HTTPError
+import random
 
-url_input = str(input("Enter url: ").strip())
+#   url_input = str(input("Enter url: ").strip())
+
+links = ["stackoverflow.com", "google.com", "cppstudio", "asjdak://adsajsda.com"]
+
+url_input = random.choice(links)
 
 if not url_input.startswith(("http://", "https://")):
     try:
@@ -30,7 +35,6 @@ except HTTPError as e:
     sys.exit()
 
 result = re.findall( r"\"(?:http[s]?://)([^:/\s\"]+)/?[^\"]*\"", response.text)
-result.sort()
 
 pt = PrettyTable(field_names=["word", "counter"])
 pt.add_rows(list(Counter(result).most_common()))
