@@ -4,11 +4,14 @@ from prettytable import PrettyTable
 from requests.exceptions import ConnectionError, HTTPError
 import random
 
-#   url_input = str(input("Enter url: ").strip())
-
 links = ["stackoverflow.com", "google.com", "cppstudio", "asjdak://adsajsda.com"]
 
-url_input = random.choice(links)
+choice = int(input("Enter your choice: 1 - Input, \n2 - random link from the list: \nstackoverflow.com, \ngoogle.com, \ncppstudio.com, \nasjdak://adsajsda.com\n\n"))
+
+if choice == 1:
+    url_input = str(input("Enter url: ")).strip()
+elif choice == 2:
+    url_input = random.choice(links)
 
 if not url_input.startswith(("http://", "https://")):
     try:
@@ -21,6 +24,7 @@ if url_input.startswith(("http://", "https://")):
 
 validators.url(url)
 if not validators.url(url):
+    print(f"You have chosen a link: {url}")
     print("Entered link is not correct...")
     sys.exit()
 
