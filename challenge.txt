@@ -1,0 +1,26 @@
+Teachers:
+    Teacher:
+        cart:
+            name
+            surname
+            patronymics
+            age
+            rank
+            gender
+    List of teachers:
+        User from the console adds a Teacher cart, and then is allowed to add more or to see other functions.
+        Teacher information saves in list, and it can be extended with more teachers or be reduced by deleting somebody
+
+Students:
+    Student:
+        cart:
+            name
+            surname
+            patronymics
+            age
+            year
+            gender
+    List of students:
+        User from console adds a Student cart, and the is allowed to add more ot to see other functions.
+        Student information saves in the List that can be showed by the function, 
+        it can be extended with more students or be reduced by deleting somebody
